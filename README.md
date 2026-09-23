@@ -28,10 +28,9 @@ contact     : sparshpoddar9@gmail.com
 
 <!-- social -->
 <p align="center">
-  <!-- Replace `your-linkedin-handle` with your real LinkedIn handle. -->
-  <a href="https://www.linkedin.com/in/your-linkedin-handle/"><img src="https://img.shields.io/badge/LinkedIn-A855F7?style=for-the-badge&logo=linkedin&logoColor=0D1117" alt="LinkedIn profile — replace the placeholder handle" /></a>
+  <a href="https://www.linkedin.com/in/sparsh-poddar-60a83633a"><img src="https://img.shields.io/badge/LinkedIn-A855F7?style=for-the-badge&logo=linkedin&logoColor=0D1117" alt="Sparsh's LinkedIn profile" /></a>
   <a href="mailto:sparshpoddar9@gmail.com"><img src="https://img.shields.io/badge/Email-00F0FF?style=for-the-badge&logo=gmail&logoColor=0D1117" alt="Email Sparsh" /></a>
-  <a href="https://github.com/EagleEye-xdata?tab=repositories"><img src="https://img.shields.io/badge/Portfolio-39FF14?style=for-the-badge&logo=github&logoColor=0D1117" alt="Sparsh's project portfolio" /></a>
+  <a href="https://sparsh-poddar-portfolio.vercel.app/"><img src="https://img.shields.io/badge/Portfolio-39FF14?style=for-the-badge&logo=vercel&logoColor=0D1117" alt="Sparsh's portfolio website" /></a>
   <a href="https://github.com/EagleEye-xdata?tab=followers"><img src="https://img.shields.io/github/followers/EagleEye-xdata?style=for-the-badge&label=FOLLOWERS&color=A855F7&labelColor=0D1117" alt="GitHub followers" /></a>
   <img src="https://komarev.com/ghpvc/?username=EagleEye-xdata&style=for-the-badge&color=00F0FF&label=PROFILE%20VIEWS" alt="Profile view counter" />
 </p>
