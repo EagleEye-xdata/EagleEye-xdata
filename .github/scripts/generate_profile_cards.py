@@ -63,6 +63,7 @@ range_end = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, micros
 data = graphql(query, {"login": USER, "from": range_start.isoformat(), "to": range_end.isoformat()})["user"]
 calendar = data["contributionsCollection"]["contributionCalendar"]
 days = [item for week in calendar["weeks"] for item in week["contributionDays"]]
+contribution_total = sum(item["contributionCount"] for item in days)
 repos = request(f"{API}/users/{USER}/repos?per_page=100&type=owner")
 stars = sum(repo["stargazers_count"] for repo in repos)
 languages = Counter()
@@ -75,7 +76,7 @@ for repo in repos:
 
 
 def draw_stats(t):
-    stats = [("CONTRIBUTIONS", calendar["totalContributions"], t["cyan"]), ("PUBLIC REPOS", data["repositories"]["totalCount"], t["purple"]), ("FOLLOWERS", data["followers"]["totalCount"], t["green"]), ("STARS", stars, t["cyan"])]
+    stats = [("CONTRIBUTIONS", contribution_total, t["cyan"]), ("PUBLIC REPOS", data["repositories"]["totalCount"], t["purple"]), ("FOLLOWERS", data["followers"]["totalCount"], t["green"]), ("STARS", stars, t["cyan"])]
     body = ""
     for index, (label, value, color) in enumerate(stats):
         x = 40 + index * 165
