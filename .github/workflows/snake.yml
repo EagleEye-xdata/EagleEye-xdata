@@ -1,4 +1,4 @@
-name: Generate contribution snake
+name: Refresh profile analytics
 
 on:
   schedule:
@@ -21,19 +21,12 @@ jobs:
     steps:
       - name: Check out the profile repository
         uses: actions/checkout@v4
-      - name: Generate SVG snakes
-        uses: Platane/snk/svg-only@v3
-        with:
-          github_user_name: EagleEye-xdata
-          outputs: |
-            dist/github-snake.svg?palette=github-light&color_snake=%2300F0FF&color_dots=%23ebedf0,%239be9a8,%2340c463,%2330a14e,%2321693c
-            dist/github-snake-dark.svg?palette=github-dark&color_snake=%2300F0FF&color_dots=%23161b22,%230e4429,%23006d32,%2326a641,%2339d353
       - name: Generate self-hosted analytics cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USERNAME: EagleEye-xdata
         run: python .github/scripts/generate_profile_cards.py
-      - name: Publish SVGs to the output branch
+      - name: Publish analytics to the output branch
         uses: crazy-max/ghaction-github-pages@v4
         with:
           target_branch: output

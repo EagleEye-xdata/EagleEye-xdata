@@ -54,8 +54,13 @@ query = """query($login: String!, $from: DateTime!, $to: DateTime!) {
     contributionsCollection(from: $from, to: $to) { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } } }
   }
 }"""
-now = datetime.now(timezone.utc)
-data = graphql(query, {"login": USER, "from": (now - timedelta(days=365)).isoformat(), "to": now.isoformat()})["user"]
+# GitHub runners use UTC. Use IST calendar boundaries so a contribution made after
+# midnight in India is rendered as the current IST day, rather than yesterday UTC.
+IST = timezone(timedelta(hours=5, minutes=30))
+now = datetime.now(IST)
+range_start = (now - timedelta(days=365)).replace(hour=0, minute=0, second=0, microsecond=0)
+range_end = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+data = graphql(query, {"login": USER, "from": range_start.isoformat(), "to": range_end.isoformat()})["user"]
 calendar = data["contributionsCollection"]["contributionCalendar"]
 days = [item for week in calendar["weeks"] for item in week["contributionDays"]]
 repos = request(f"{API}/users/{USER}/repos?per_page=100&type=owner")
@@ -92,7 +97,7 @@ def draw_languages(t):
 
 counts = {entry["date"]: entry["contributionCount"] for entry in days}
 current = 0
-cursor = date.today()
+cursor = now.date()
 while counts.get(cursor.isoformat(), 0) > 0:
     current += 1
     cursor -= timedelta(days=1)
