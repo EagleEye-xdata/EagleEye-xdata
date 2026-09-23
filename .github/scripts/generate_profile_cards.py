@@ -103,6 +103,11 @@ month_start = today.replace(day=1)
 today_total = counts.get(today.isoformat(), 0)
 week_total = sum(count for day, count in counts.items() if week_start <= date.fromisoformat(day) <= today)
 month_total = sum(count for day, count in counts.items() if month_start <= date.fromisoformat(day) <= today)
+last_30_start = today - timedelta(days=29)
+last_30_counts = [count for day, count in counts.items() if last_30_start <= date.fromisoformat(day) <= today]
+last_30_total = sum(last_30_counts)
+last_30_active_days = sum(count > 0 for count in last_30_counts)
+last_30_peak = max(last_30_counts, default=0)
 current = 0
 cursor = today
 while counts.get(cursor.isoformat(), 0) > 0:
@@ -128,6 +133,15 @@ def draw_pulse(t):
     return card("contribution_pulse --IST", body, t)
 
 
+def draw_momentum(t):
+    metrics = [("ACTIVE DAYS", last_30_active_days, t["cyan"]), ("30D TOTAL", last_30_total, t["purple"]), ("PEAK DAY", last_30_peak, t["green"])]
+    body = f'<text x="32" y="73" fill="{t["muted"]}" font-family="Fira Code, monospace" font-size="12">last 30 days · IST calendar</text>'
+    for index, (label, value, color) in enumerate(metrics):
+        x = 46 + index * 215
+        body += f'<rect x="{x}" y="92" width="180" height="112" rx="12" fill="{t["panel"]}"/><text x="{x+90}" y="151" text-anchor="middle" fill="{color}" font-family="Fira Code, monospace" font-size="42" font-weight="700">{value}</text><text x="{x+90}" y="181" text-anchor="middle" fill="{t["muted"]}" font-family="Arial, sans-serif" font-size="12">{label}</text>'
+    return card("momentum --30d", body, t)
+
+
 def draw_activity(t):
     values = [entry["contributionCount"] for entry in days]
     maximum = max(values) or 1
@@ -141,6 +155,7 @@ save("stats", draw_stats)
 save("top-languages", draw_languages)
 save("streak", draw_streak)
 save("contribution-pulse", draw_pulse)
+save("momentum", draw_momentum)
 save("activity-graph", draw_activity)
 
 # The interactive GitHub Pages dashboard reads the same contribution data as the cards.
