@@ -120,3 +120,9 @@ save("stats", draw_stats)
 save("top-languages", draw_languages)
 save("streak", draw_streak)
 save("activity-graph", draw_activity)
+
+# The interactive GitHub Pages dashboard reads the same contribution data as the cards.
+(OUT / "contributions.json").write_text(
+    json.dumps({"generated_at": now.isoformat(), "days": days}, separators=(",", ":")),
+    encoding="utf-8",
+)

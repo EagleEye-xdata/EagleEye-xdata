@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="description" content="Interactive GitHub contribution dashboard for Sparsh Poddar." />
+  <title>Contribution Signal · Sparsh Poddar</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <style>
+    /* Hallmark · macrostructure: Component Playground · tone: terminal observability · anchor hue: cyan */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-width: 0; overflow-x: clip; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); }
+    body { min-height: 100dvh; background-image: linear-gradient(oklch(88% .17 205 / .05) 1px, transparent 1px), linear-gradient(90deg, oklch(88% .17 205 / .05) 1px, transparent 1px); background-size: 32px 32px; }
+    a { color: inherit; } button { font: inherit; }
+    .shell { width: min(1100px, 100%); margin: 0 auto; padding: clamp(1rem, 4vw, 3rem); }
+    .topline { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-3) var(--space-6); border-bottom: 1px solid var(--color-rule); }
+    .brand { font: 700 .8rem/1 var(--font-mono); color: var(--color-accent); letter-spacing: .08em; text-decoration: none; white-space: nowrap; }
+    .profile-link { min-height: 44px; display: inline-grid; place-items: center; padding-inline: var(--space-4); border: 1px solid var(--color-rule); border-radius: var(--radius-sm); text-decoration: none; font: 700 .78rem/1 var(--font-mono); white-space: nowrap; transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out); }
+    .profile-link:hover { border-color: var(--color-accent); transform: translateY(-1px); } .profile-link:active { transform: translateY(1px); }
+    :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+    .hero { padding-block: clamp(2.5rem, 8vw, 6rem) var(--space-6); }
+    h1 { max-width: 12ch; margin: 0; min-width: 0; overflow-wrap: anywhere; font: 700 clamp(2.8rem, 9vw, 6.8rem)/.92 var(--font-display); letter-spacing: -.065em; }
+    .hero p { max-width: 58ch; margin: var(--space-5) 0 0; color: var(--color-muted); font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.6; }
+    .status { display: inline-flex; align-items: center; gap: var(--space-2); margin-top: var(--space-5); color: var(--color-muted); font: .8rem/1.4 var(--font-mono); }
+    .status::before { content: ""; width: .6rem; height: .6rem; border-radius: 50%; background: var(--color-success); box-shadow: 0 0 1rem var(--color-success); }
+    .layout { display: grid; gap: var(--space-5); grid-template-columns: minmax(0, 1fr); }
+    .panel { min-width: 0; padding: clamp(1rem, 3vw, 2rem); background: var(--color-panel); border: 1px solid var(--color-rule); border-radius: var(--radius-lg); box-shadow: 0 1.5rem 4rem oklch(0% 0 0 / .18); }
+    .panel h2 { margin: 0; font: 700 clamp(1.2rem, 3vw, 1.75rem)/1.15 var(--font-display); letter-spacing: -.03em; }
+    .panel-head { display: flex; align-items: start; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-5); }
+    .legend { display: flex; align-items: center; gap: var(--space-1); color: var(--color-muted); font: .7rem/1 var(--font-mono); white-space: nowrap; }
+    .legend i { width: .75rem; height: .75rem; border-radius: .2rem; background: var(--color-rule); } .legend i:nth-of-type(2) { background: oklch(40% .1 150); } .legend i:nth-of-type(3) { background: oklch(60% .15 150); } .legend i:nth-of-type(4) { background: var(--color-success); }
+    .heatmap-scroll { overflow-x: auto; padding-bottom: var(--space-2); scrollbar-color: var(--color-secondary) var(--color-panel); }
+    .heatmap { display: grid; grid-template-columns: repeat(53, 15px); grid-template-rows: repeat(7, 15px); grid-auto-flow: column; gap: 4px; width: max-content; min-width: 100%; }
+    .day { width: 15px; height: 15px; padding: 0; border: 0; border-radius: 3px; cursor: pointer; background: var(--color-rule); transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out); }
+    .day[data-level="1"] { background: oklch(37% .10 150); } .day[data-level="2"] { background: oklch(54% .15 150); } .day[data-level="3"] { background: oklch(68% .19 150); } .day[data-level="4"] { background: var(--color-success); }
+    .day:hover, .day.is-selected { transform: scale(1.35); box-shadow: 0 0 0 2px var(--color-paper), 0 0 0 4px var(--color-accent); z-index: 2; }
+    .detail { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-4); align-items: center; margin-top: var(--space-5); padding: var(--space-4); background: var(--color-panel-2); border-radius: var(--radius-md); }
+    .detail-count { color: var(--color-accent); font: 700 clamp(2rem, 6vw, 3rem)/1 var(--font-mono); } .detail-copy strong { display: block; font: 700 .95rem/1.4 var(--font-mono); } .detail-copy span { color: var(--color-muted); font-size: .85rem; }
+    .metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+    .metric { padding: var(--space-4); background: var(--color-panel-2); border-radius: var(--radius-md); } .metric b { display: block; color: var(--color-secondary); font: 700 clamp(1.6rem, 4vw, 2.25rem)/1 var(--font-mono); } .metric span { display: block; margin-top: var(--space-2); color: var(--color-muted); font: .72rem/1.3 var(--font-mono); text-transform: uppercase; letter-spacing: .05em; }
+    .bars { display: flex; height: 140px; align-items: end; gap: 3px; padding-top: var(--space-4); border-bottom: 1px solid var(--color-rule); } .bar { flex: 1 1 0; min-width: 3px; border-radius: 2px 2px 0 0; background: var(--color-accent); opacity: .78; } .bar:hover { opacity: 1; background: var(--color-secondary); }
+    .note { margin: var(--space-5) 0 0; color: var(--color-muted); font-size: .86rem; line-height: 1.55; } .note code { color: var(--color-accent); font-family: var(--font-mono); }
+    footer { padding-block: var(--space-7) var(--space-4); color: var(--color-muted); font: .75rem/1.5 var(--font-mono); }
+    @media (min-width: 60rem) { .layout { grid-template-columns: minmax(0, 1.6fr) minmax(18rem, .8fr); } .heatmap { min-width: 0; } .metrics { grid-template-columns: 1fr; } }
+    @media (hover: none) { .day:hover { transform: none; box-shadow: none; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topline" aria-label="Dashboard navigation"><a class="brand" href="https://github.com/EagleEye-xdata">EAGLEEYE-XDATA / SIGNAL</a><a class="profile-link" href="https://github.com/EagleEye-xdata">GitHub profile ↗</a></nav>
+    <header class="hero"><h1>Contribution signal.</h1><p>Tap or hover any cell to inspect the exact date and contribution count. This dashboard refreshes at 12:00 AM and 12:00 PM IST.</p><div class="status" id="status">Loading live contribution data</div></header>
+    <section class="layout" aria-label="Contribution dashboard">
+      <article class="panel"><div class="panel-head"><h2>Daily activity</h2><div class="legend" aria-label="Contribution intensity, less to more">Less <i></i><i></i><i></i><i></i> More</div></div><div class="heatmap-scroll"><div class="heatmap" id="heatmap" role="grid" aria-label="Contribution heatmap"></div></div><div class="detail" id="detail" aria-live="polite"><div class="detail-count" id="detail-count">—</div><div class="detail-copy"><strong id="detail-date">Select a day</strong><span id="detail-label">Tap a contribution cell to inspect it.</span></div></div></article>
+      <aside class="panel"><div class="panel-head"><h2>Snapshot</h2></div><div class="metrics"><div class="metric"><b id="total">—</b><span>Contributions / year</span></div><div class="metric"><b id="active-days">—</b><span>Active days</span></div><div class="metric"><b id="peak">—</b><span>Peak / day</span></div></div><div class="bars" id="bars" aria-label="Last 30 days contribution bar chart"></div><p class="note">Data is generated by this profile repository’s GitHub Action. Click <code>GitHub profile</code> for the native contribution calendar.</p></aside>
+    </section>
+    <footer>SPARSH PODDAR · AI SECURITY / ML SYSTEMS / SOFTWARE BUILDER</footer>
+  </main>
+  <script>
+    const source = "https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/output/contributions.json";
+    const status = document.querySelector("#status"), heatmap = document.querySelector("#heatmap"), formatter = new Intl.DateTimeFormat("en-IN", { dateStyle: "full" });
+    const setDetail = (day, button) => { document.querySelectorAll(".day.is-selected").forEach((cell) => cell.classList.remove("is-selected")); button?.classList.add("is-selected"); const count = day.contributionCount; document.querySelector("#detail-count").textContent = count; document.querySelector("#detail-date").textContent = formatter.format(new Date(`${day.date}T00:00:00`)); document.querySelector("#detail-label").textContent = `${count} contribution${count === 1 ? "" : "s"} recorded`; };
+    fetch(source).then((response) => { if (!response.ok) throw new Error("Data unavailable"); return response.json(); }).then(({ generated_at, days }) => { const max = Math.max(...days.map((day) => day.contributionCount), 1); const level = (count) => count === 0 ? 0 : Math.min(4, Math.ceil((count / max) * 4)); days.forEach((day) => { const button = document.createElement("button"); button.className = "day"; button.dataset.level = level(day.contributionCount); button.setAttribute("role", "gridcell"); button.setAttribute("aria-label", `${formatter.format(new Date(`${day.date}T00:00:00`))}: ${day.contributionCount} contributions`); button.addEventListener("click", () => setDetail(day, button)); button.addEventListener("focus", () => setDetail(day, button)); button.addEventListener("mouseenter", () => setDetail(day, button)); heatmap.append(button); }); const total = days.reduce((sum, day) => sum + day.contributionCount, 0); document.querySelector("#total").textContent = total; document.querySelector("#active-days").textContent = days.filter((day) => day.contributionCount > 0).length; document.querySelector("#peak").textContent = max; days.slice(-30).forEach((day) => { const bar = document.createElement("div"); bar.className = "bar"; bar.style.height = `${Math.max(3, day.contributionCount / max * 100)}%`; bar.title = `${day.date}: ${day.contributionCount} contributions`; document.querySelector("#bars").append(bar); }); status.textContent = `Live data generated ${new Date(generated_at).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Kolkata" })} IST`; setDetail(days.at(-1)); }).catch(() => { status.textContent = "Data is refreshing — please retry in a minute."; status.style.color = "var(--color-error)"; });
+  </script>
+</body>
+</html>
