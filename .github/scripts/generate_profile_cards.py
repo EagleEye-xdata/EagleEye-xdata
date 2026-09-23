@@ -97,8 +97,14 @@ def draw_languages(t):
 
 
 counts = {entry["date"]: entry["contributionCount"] for entry in days}
+today = now.date()
+week_start = today - timedelta(days=today.weekday())
+month_start = today.replace(day=1)
+today_total = counts.get(today.isoformat(), 0)
+week_total = sum(count for day, count in counts.items() if week_start <= date.fromisoformat(day) <= today)
+month_total = sum(count for day, count in counts.items() if month_start <= date.fromisoformat(day) <= today)
 current = 0
-cursor = now.date()
+cursor = today
 while counts.get(cursor.isoformat(), 0) > 0:
     current += 1
     cursor -= timedelta(days=1)
@@ -113,6 +119,15 @@ def draw_streak(t):
     return card("contribution_streak --last-year", body, t)
 
 
+def draw_pulse(t):
+    metrics = [("TODAY", today_total, t["cyan"]), ("THIS WEEK", week_total, t["purple"]), ("THIS MONTH", month_total, t["green"])]
+    body = f'<text x="32" y="73" fill="{t["muted"]}" font-family="Fira Code, monospace" font-size="12">IST calendar · updated twice daily</text>'
+    for index, (label, value, color) in enumerate(metrics):
+        x = 46 + index * 215
+        body += f'<rect x="{x}" y="92" width="180" height="112" rx="12" fill="{t["panel"]}"/><text x="{x+90}" y="151" text-anchor="middle" fill="{color}" font-family="Fira Code, monospace" font-size="42" font-weight="700">{value}</text><text x="{x+90}" y="181" text-anchor="middle" fill="{t["muted"]}" font-family="Arial, sans-serif" font-size="12">{label}</text>'
+    return card("contribution_pulse --IST", body, t)
+
+
 def draw_activity(t):
     values = [entry["contributionCount"] for entry in days]
     maximum = max(values) or 1
@@ -125,6 +140,7 @@ def draw_activity(t):
 save("stats", draw_stats)
 save("top-languages", draw_languages)
 save("streak", draw_streak)
+save("contribution-pulse", draw_pulse)
 save("activity-graph", draw_activity)
 
 # The interactive GitHub Pages dashboard reads the same contribution data as the cards.
