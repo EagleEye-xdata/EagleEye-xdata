@@ -88,9 +88,3 @@ contact     : sparshpoddar9@gmail.com
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/output/github-snake-cyber.svg" />
   <img width="100%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/output/github-snake-light.svg" alt="Animated neon-cyan snake moving through Sparsh's GitHub contribution grid" />
 </picture>
-
-<!-- footer -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://capsule-render.vercel.app/api?type=waving&color=0:0D1117,50:A855F7,100:00F0FF&height=120&section=footer" />
-  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:FFFFFF,50:D8B4FE,100:00B8C4&height=120&section=footer" alt="Decorative cyberpunk wave footer" />
-</picture>
