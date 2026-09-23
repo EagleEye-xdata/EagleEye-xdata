@@ -1,20 +1,29 @@
-<svg fill="none" viewBox="0 0 1200 320" width="1200" height="320" xmlns="http://www.w3.org/2000/svg">
+<svg fill="none" viewBox="0 0 1200 340" width="1200" height="340" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="320" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0b1020"/><stop offset=".48" stop-color="#142447"/><stop offset="1" stop-color="#15102d"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="340" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#070B12"/><stop offset=".48" stop-color="#10152D"/><stop offset="1" stop-color="#160B2B"/>
     </linearGradient>
     <linearGradient id="accent" x1="200" y1="90" x2="1000" y2="240" gradientUnits="userSpaceOnUse">
       <stop stop-color="#22d3ee"/><stop offset=".48" stop-color="#818cf8"/><stop offset="1" stop-color="#c084fc"/>
     </linearGradient>
-    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="#93c5fd" stroke-opacity=".09"/></pattern>
-    <filter id="glow"><feGaussianBlur stdDeviation="11"/></filter>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="#00F0FF" stroke-opacity=".08"/></pattern>
+    <filter id="glow"><feGaussianBlur stdDeviation="14"/></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
   </defs>
-  <rect width="1200" height="320" rx="18" fill="url(#bg)"/>
-  <rect width="1200" height="320" rx="18" fill="url(#grid)"/>
-  <circle cx="980" cy="75" r="125" fill="#6366f1" fill-opacity=".20" filter="url(#glow)"/>
-  <circle cx="180" cy="280" r="110" fill="#06b6d4" fill-opacity=".16" filter="url(#glow)"/>
-  <path d="M90 236H1110" stroke="url(#accent)" stroke-opacity=".7"/>
-  <text x="600" y="128" fill="#f8fafc" font-family="Arial, Helvetica, sans-serif" font-size="61" font-weight="700" text-anchor="middle">Sparsh Poddar</text>
-  <text x="600" y="177" fill="#bfdbfe" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" letter-spacing="5" text-anchor="middle">SECURITY  •  AI / ML  •  SOFTWARE BUILDER</text>
-  <text x="600" y="224" fill="#67e8f9" font-family="Arial, Helvetica, sans-serif" font-size="17" text-anchor="middle">Building thoughtful tools for real-world problems</text>
+  <rect width="1200" height="340" rx="18" fill="url(#bg)"/>
+  <rect width="1200" height="340" rx="18" fill="url(#grid)"/>
+  <circle cx="1010" cy="66" r="150" fill="#A855F7" fill-opacity=".20" filter="url(#glow)"/>
+  <circle cx="150" cy="300" r="130" fill="#00F0FF" fill-opacity=".16" filter="url(#glow)"/>
+  <g stroke="#00F0FF" stroke-opacity=".34" fill="none">
+    <path d="M0 70H170L215 115H350"/><path d="M0 270H120L165 225H310"/>
+    <path d="M1200 88H1050L1010 128H870"/><path d="M1200 263H1060L1012 215H875"/>
+  </g>
+  <g fill="#39FF14"><circle cx="170" cy="70" r="4"/><circle cx="165" cy="225" r="4"/><circle cx="1050" cy="88" r="4"/><circle cx="1060" cy="263" r="4"/></g>
+  <rect x="365" y="58" width="470" height="176" rx="18" fill="#0D1117" fill-opacity=".68" stroke="#00F0FF" stroke-opacity=".48"/>
+  <rect x="366" y="59" width="468" height="5" rx="2" fill="url(#accent)"/>
+  <text x="600" y="124" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="55" font-weight="700" text-anchor="middle">SPARSH PODDAR</text>
+  <text x="600" y="166" fill="#00F0FF" font-family="monospace" font-size="18" font-weight="700" letter-spacing="3" text-anchor="middle">SECURITY  •  AI / ML  •  BUILDER</text>
+  <text x="600" y="202" fill="#C4B5FD" font-family="monospace" font-size="14" text-anchor="middle">&gt; building secure systems for intelligent software</text>
+  <path d="M92 287H1108" stroke="url(#accent)" stroke-opacity=".75"/>
+  <text x="600" y="310" fill="#39FF14" font-family="monospace" font-size="12" letter-spacing="2" text-anchor="middle">AI SECURITY  //  PROMPT DEFENSE  //  MACHINE LEARNING</text>
 </svg>

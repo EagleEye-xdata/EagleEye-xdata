@@ -1,8 +1,5 @@
 <!-- header -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://capsule-render.vercel.app/api?type=venom&color=0:0D1117,50:A855F7,100:00F0FF&height=250&section=header&text=Sparsh%20Poddar&fontSize=58&fontColor=00F0FF&animation=twinkling&fontAlignY=42&desc=Security%20%E2%80%A2%20AI%2FML%20%E2%80%A2%20Software%20Builder&descSize=20&descAlignY=62" />
-  <img width="100%" src="https://capsule-render.vercel.app/api?type=venom&color=0:FFFFFF,50:D8B4FE,100:00B8C4&height=250&section=header&text=Sparsh%20Poddar&fontSize=58&fontColor=0D1117&animation=twinkling&fontAlignY=42&desc=Security%20%E2%80%A2%20AI%2FML%20%E2%80%A2%20Software%20Builder&descSize=20&descAlignY=62" alt="Sparsh Poddar — Security, AI/ML, Software Builder" />
-</picture>
+<img width="100%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/main/assets/banner.svg" alt="Sparsh Poddar — Security, AI/ML, Software Builder" />
 
 <!-- typing -->
 <p align="center">
