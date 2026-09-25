@@ -10,6 +10,10 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    # Cache-version commits only touch README.md. Do not launch a second
+    # analytics job for those commits.
+    paths-ignore:
+      - README.md
 
 permissions:
   contents: write
@@ -54,17 +58,7 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
-            python - <<'PY'
-            import os
-            import re
-            from pathlib import Path
-
-            readme = Path("README.md")
-            source = readme.read_text(encoding="utf-8")
-            pattern = r"(https://raw\.githubusercontent\.com/EagleEye-xdata/EagleEye-xdata/output/[\w-]+\.svg)(?:\?v=\d+)?"
-            updated = re.sub(pattern, lambda match: f"{match.group(1)}?v={os.environ['RUN_ID']}", source)
-            readme.write_text(updated, encoding="utf-8")
-            PY
+            python -c "import os, re; from pathlib import Path; readme = Path('README.md'); source = readme.read_text(encoding='utf-8'); pattern = r'(https://raw\\.githubusercontent\\.com/EagleEye-xdata/EagleEye-xdata/output/[\\w-]+\\.svg)(?:\\?v=\\d+)?'; readme.write_text(re.sub(pattern, lambda match: f'{match.group(1)}?v={os.environ[\"RUN_ID\"]}', source), encoding='utf-8')"
             if git diff --quiet -- README.md; then exit 0; fi
             git add README.md
             git commit -m "chore: refresh profile card cache"
