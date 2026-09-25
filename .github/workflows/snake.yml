@@ -49,20 +49,26 @@ jobs:
         env:
           RUN_ID: ${{ github.run_id }}
         run: |
-          python - <<'PY'
-          import os
-          import re
-          from pathlib import Path
-
-          readme = Path("README.md")
-          source = readme.read_text(encoding="utf-8")
-          pattern = r"(https://raw\.githubusercontent\.com/EagleEye-xdata/EagleEye-xdata/output/[\w-]+\.svg)(?:\?v=\d+)?"
-          updated = re.sub(pattern, lambda match: f"{match.group(1)}?v={os.environ['RUN_ID']}", source)
-          readme.write_text(updated, encoding="utf-8")
-          PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- README.md; then exit 0; fi
-          git add README.md
-          git commit -m "chore: refresh profile card cache"
-          git push
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python - <<'PY'
+            import os
+            import re
+            from pathlib import Path
+
+            readme = Path("README.md")
+            source = readme.read_text(encoding="utf-8")
+            pattern = r"(https://raw\.githubusercontent\.com/EagleEye-xdata/EagleEye-xdata/output/[\w-]+\.svg)(?:\?v=\d+)?"
+            updated = re.sub(pattern, lambda match: f"{match.group(1)}?v={os.environ['RUN_ID']}", source)
+            readme.write_text(updated, encoding="utf-8")
+            PY
+            if git diff --quiet -- README.md; then exit 0; fi
+            git add README.md
+            git commit -m "chore: refresh profile card cache"
+            if git push; then exit 0; fi
+            sleep $((attempt * 2))
+          done
+          exit 1
