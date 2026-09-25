@@ -2,11 +2,8 @@ name: Refresh profile analytics
 
 on:
   schedule:
-    # Primary IST noon/midnight runs. GitHub executes cron in UTC.
+    # Midnight and noon in IST. GitHub cron uses UTC.
     - cron: "30 6,18 * * *"
-    # Backup refresh: 12:05 AM, 1:05 AM, etc. IST. This keeps profile cards
-    # fresh when GitHub delays an exact scheduled run around midnight.
-    - cron: "35 * * * *"
   workflow_dispatch:
   push:
     branches: [main]
