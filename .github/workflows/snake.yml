@@ -2,8 +2,8 @@ name: Refresh profile analytics
 
 on:
   schedule:
-    # Midnight and noon in IST. GitHub cron uses UTC.
-    - cron: "30 6,18 * * *"
+    # 12 AM, 6 AM, 12 PM, and 6 PM in IST. GitHub cron uses UTC.
+    - cron: "30 0,6,12,18 * * *"
   workflow_dispatch:
   push:
     branches: [main]
