@@ -108,8 +108,13 @@ last_30_counts = [count for day, count in counts.items() if last_30_start <= dat
 last_30_total = sum(last_30_counts)
 last_30_active_days = sum(count > 0 for count in last_30_counts)
 last_30_peak = max(last_30_counts, default=0)
+# A zero for the in-progress IST day must not erase a valid streak. The only
+# exception is the 11:59 PM IST verification run, when the day is treated as
+# complete and a zero correctly ends the streak.
+day_finalized = now.hour == 23 and now.minute >= 59
+streak_anchor = today if today_total > 0 or day_finalized else today - timedelta(days=1)
 current = 0
-cursor = today
+cursor = streak_anchor
 while counts.get(cursor.isoformat(), 0) > 0:
     current += 1
     cursor -= timedelta(days=1)
@@ -126,7 +131,7 @@ def draw_streak(t):
 
 def draw_pulse(t):
     metrics = [("TODAY", today_total, t["cyan"]), ("THIS WEEK", week_total, t["purple"]), ("THIS MONTH", month_total, t["green"])]
-    body = f'<text x="32" y="73" fill="{t["muted"]}" font-family="Fira Code, monospace" font-size="12">IST calendar · updated twice daily</text>'
+    body = f'<text x="32" y="73" fill="{t["muted"]}" font-family="Fira Code, monospace" font-size="12">IST calendar · refreshes every 6 hours</text>'
     for index, (label, value, color) in enumerate(metrics):
         x = 46 + index * 215
         body += f'<rect x="{x}" y="92" width="180" height="112" rx="12" fill="{t["panel"]}"/><text x="{x+90}" y="151" text-anchor="middle" fill="{color}" font-family="Fira Code, monospace" font-size="42" font-weight="700">{value}</text><text x="{x+90}" y="181" text-anchor="middle" fill="{t["muted"]}" font-family="Arial, sans-serif" font-size="12">{label}</text>'
