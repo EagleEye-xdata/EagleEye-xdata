@@ -55,7 +55,20 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
-            python -c "import os, re; from pathlib import Path; readme = Path('README.md'); source = readme.read_text(encoding='utf-8'); pattern = r'(https://raw\\.githubusercontent\\.com/EagleEye-xdata/EagleEye-xdata/output/[\\w-]+\\.svg)(?:\\?v=\\d+)?'; readme.write_text(re.sub(pattern, lambda match: f'{match.group(1)}?v={os.environ[\"RUN_ID\"]}', source), encoding='utf-8')"
+            ASSET_REF="$(git ls-remote origin refs/heads/output | cut -f1)"
+            test -n "$ASSET_REF"
+            export ASSET_REF
+          python <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          readme = Path("README.md")
+          source = readme.read_text(encoding="utf-8")
+          pattern = r"(https://raw\.githubusercontent\.com/EagleEye-xdata/EagleEye-xdata)/(?:output|[0-9a-f]{40})/([\w-]+\.svg)(?:\?v=\d+)?"
+          updated = re.sub(pattern, lambda match: f"{match.group(1)}/{os.environ['ASSET_REF']}/{match.group(2)}", source)
+          readme.write_text(updated, encoding="utf-8")
+          PY
             if git diff --quiet -- README.md; then exit 0; fi
             git add README.md
             git commit -m "chore: refresh profile card cache"
