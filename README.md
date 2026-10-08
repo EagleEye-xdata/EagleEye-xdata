@@ -72,16 +72,16 @@ contact     : sparshpoddar9@gmail.com
 ## 📈 GitHub analytics
 
 <p align="center">
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/stats-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/stats.svg" alt="GitHub contribution and repository statistics" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/top-languages-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/top-languages.svg" alt="Most-used programming languages" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/stats-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/stats.svg" alt="GitHub contribution and repository statistics" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/top-languages-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/top-languages.svg" alt="Most-used programming languages" /></picture>
 </p>
 <p align="center">
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/streak-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/streak.svg" alt="Current and longest contribution streaks" /></picture>
-  <a href="https://eagleeye-xdata.github.io/EagleEye-xdata/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/activity-graph-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/activity-graph.svg" alt="GitHub contribution activity graph — click to explore exact daily counts" /></picture></a>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/streak-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/streak.svg" alt="Current and longest contribution streaks" /></picture>
+  <a href="https://eagleeye-xdata.github.io/EagleEye-xdata/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/activity-graph-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/activity-graph.svg" alt="GitHub contribution activity graph — click to explore exact daily counts" /></picture></a>
 </p>
 <p align="center">
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/contribution-pulse-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/contribution-pulse.svg" alt="Today's, this week's, and this month's GitHub contributions in IST" /></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/momentum-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/momentum.svg" alt="Active contribution days, 30-day total, and peak day" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/contribution-pulse-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/contribution-pulse.svg" alt="Today's, this week's, and this month's GitHub contributions in IST" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/momentum-dark.svg" /><img width="49%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/momentum.svg" alt="Active contribution days, 30-day total, and peak day" /></picture>
 </p>
 <p align="center"><a href="https://eagleeye-xdata.github.io/EagleEye-xdata/">Explore the interactive contribution dashboard →</a></p>
 
@@ -89,6 +89,6 @@ contact     : sparshpoddar9@gmail.com
 ## 🐍 Cyber contribution snake
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/github-snake-cyber.svg" />
-  <img width="100%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/03373582b557cd9b868ddb00b150917ca5601797/github-snake-light.svg" alt="Animated neon-cyan snake moving through Sparsh's GitHub contribution grid" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/github-snake-cyber.svg" />
+  <img width="100%" src="https://raw.githubusercontent.com/EagleEye-xdata/EagleEye-xdata/e65c77d97070198515dc2ee609d127b23d20f5d3/github-snake-light.svg" alt="Animated neon-cyan snake moving through Sparsh's GitHub contribution grid" />
 </picture>
