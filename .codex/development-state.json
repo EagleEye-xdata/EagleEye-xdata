@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "managed_by": "scheduled-codex-maintenance",
+  "repository": "EagleEye-xdata/EagleEye-xdata",
+  "scope": "safe reviewable maintenance only",
+  "last_successful_session": null,
+  "last_analysed_commit": null,
+  "completed_improvements": [],
+  "pending_improvements": [
+    "Review profile documentation and accessible presentation opportunities."
+  ],
+  "known_issues": [],
+  "open_development_pull_requests": []
+}

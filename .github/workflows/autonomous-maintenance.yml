@@ -1,0 +1,31 @@
+name: Scheduled Codex maintenance
+
+on:
+  schedule:
+    # 09:00, 12:00, 15:00, 18:00, and 22:00 Asia/Kolkata (UTC+05:30).
+    - cron: "30 3,6,9,12,16 * * *"
+  workflow_dispatch:
+    inputs:
+      focus:
+        description: Optional bounded maintenance focus
+        required: false
+        type: string
+        default: general maintenance
+
+permissions: {}
+
+concurrency:
+  group: codex-maintenance-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  maintenance:
+    uses: ./.github/workflows/reusable-autonomous-maintenance.yml
+    with:
+      project_name: EagleEye-xdata GitHub profile
+      validation_commands: |
+        python -m py_compile .github/scripts/generate_profile_cards.py .github/scripts/clean_snake_svg.py
+      allowed_path_pattern: '^(README\.md$|assets/|docs/|\.codex/development-state\.json$|docs/AUTONOMOUS_DEVELOPMENT_LOG\.md$)'
+      project_context: Keep the profile rendering on GitHub itself; preserve the analytics and snake workflows. Do not change external image URLs, workflow files, or generated analytics assets.
+      focus: ${{ inputs.focus || 'general maintenance' }}
+    secrets: inherit
