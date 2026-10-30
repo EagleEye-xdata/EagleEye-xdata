@@ -28,4 +28,5 @@ jobs:
       allowed_path_pattern: '^(README\.md$|assets/|docs/|\.codex/development-state\.json$|docs/AUTONOMOUS_DEVELOPMENT_LOG\.md$)'
       project_context: Keep the profile rendering on GitHub itself; preserve the analytics and snake workflows. Do not change external image URLs, workflow files, or generated analytics assets.
       focus: ${{ inputs.focus || 'general maintenance' }}
+      delivery_mode: direct
     secrets: inherit
