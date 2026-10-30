@@ -12,7 +12,9 @@ on:
         type: string
         default: general maintenance
 
-permissions: {}
+permissions:
+  contents: write
+  pull-requests: write
 
 concurrency:
   group: codex-maintenance-${{ github.repository }}
