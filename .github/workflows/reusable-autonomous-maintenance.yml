@@ -42,21 +42,27 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     permissions: {}
+    outputs:
+      configured: ${{ steps.configuration.outputs.configured }}
     steps:
-      - name: Require the Codex API secret
+      - name: Check Codex API configuration
+        id: configuration
         env:
           CODEX_API_KEY_CONFIGURED: ${{ secrets.OPENAI_API_KEY != '' }}
         run: |
           if [ "$CODEX_API_KEY_CONFIGURED" != "true" ]; then
-            echo "Missing repository Actions secret OPENAI_API_KEY." >&2
-            echo "Add the secret in Settings > Secrets and variables > Actions, then rerun this workflow." >&2
-            exit 1
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "## Codex maintenance is waiting for setup" >> "$GITHUB_STEP_SUMMARY"
+            echo "Add the repository Actions secret \`OPENAI_API_KEY\` to enable maintenance runs." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
           fi
+          echo "configured=true" >> "$GITHUB_OUTPUT"
           echo "Codex API secret is configured."
 
   generate-patch:
     name: Generate a reviewable maintenance patch
     needs: preflight
+    if: needs.preflight.outputs.configured == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
