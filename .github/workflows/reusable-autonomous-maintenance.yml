@@ -44,15 +44,15 @@ jobs:
     permissions: {}
     steps:
       - name: Require the Codex API secret
-        if: ${{ secrets.OPENAI_API_KEY == '' }}
+        env:
+          CODEX_API_KEY_CONFIGURED: ${{ secrets.OPENAI_API_KEY != '' }}
         run: |
-          echo "Missing repository Actions secret OPENAI_API_KEY." >&2
-          echo "Add the secret in Settings > Secrets and variables > Actions, then rerun this workflow." >&2
-          exit 1
-
-      - name: Confirm required secret is configured
-        if: ${{ secrets.OPENAI_API_KEY != '' }}
-        run: echo "Codex API secret is configured."
+          if [ "$CODEX_API_KEY_CONFIGURED" != "true" ]; then
+            echo "Missing repository Actions secret OPENAI_API_KEY." >&2
+            echo "Add the secret in Settings > Secrets and variables > Actions, then rerun this workflow." >&2
+            exit 1
+          fi
+          echo "Codex API secret is configured."
 
   generate-patch:
     name: Generate a reviewable maintenance patch
