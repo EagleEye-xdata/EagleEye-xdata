@@ -15,15 +15,29 @@ jobs:
     name: Verify a real daily commit
     runs-on: ubuntu-latest
     steps:
-      - name: Check for commits authored today in IST
+      - name: Check authorized repositories for commits authored today in IST
         id: contribution
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           today_ist="$(TZ=Asia/Kolkata date +%F)"
-          query="author:EagleEye-xdata author-date:${today_ist}"
-          count="$(gh api -H 'Accept: application/vnd.github+json' /search/commits -f q="$query" --jq '.total_count')"
+          repositories=(
+            EagleEye-xdata
+            model-drift-watch
+            doc_editor
+            KRONOS
+            Soule_Mate
+            Nirogya
+          )
+          count=0
+          for repository in "${repositories[@]}"; do
+            repo_count="$(gh api --method GET "repos/EagleEye-xdata/${repository}/commits" \
+              -f author=EagleEye-xdata \
+              -f since="${today_ist}T00:00:00+05:30" \
+              --jq 'length')"
+            count=$((count + repo_count))
+          done
           echo "today_ist=$today_ist" >> "$GITHUB_OUTPUT"
           echo "count=$count" >> "$GITHUB_OUTPUT"
           if [ "$count" -gt 0 ]; then
