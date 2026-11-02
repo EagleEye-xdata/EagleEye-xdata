@@ -1,0 +1,50 @@
+name: Streak guard
+
+on:
+  schedule:
+    # 22:30 Asia/Kolkata (UTC+05:30). Run early enough to leave time for real work.
+    - cron: "0 17 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  verify-daily-work:
+    name: Verify a real daily commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for commits authored today in IST
+        id: contribution
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          today_ist="$(TZ=Asia/Kolkata date +%F)"
+          query="author:EagleEye-xdata author-date:${today_ist}"
+          count="$(gh api -H 'Accept: application/vnd.github+json' /search/commits -f q="$query" --jq '.total_count')"
+          echo "today_ist=$today_ist" >> "$GITHUB_OUTPUT"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          if [ "$count" -gt 0 ]; then
+            echo "verified=true" >> "$GITHUB_OUTPUT"
+            echo "## Streak guard: real work found" >> "$GITHUB_STEP_SUMMARY"
+            echo "Found $count commit(s) authored by EagleEye-xdata on $today_ist (IST)." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "verified=false" >> "$GITHUB_OUTPUT"
+            echo "## Streak guard: action needed" >> "$GITHUB_STEP_SUMMARY"
+            echo "No commit authored by EagleEye-xdata was found for $today_ist (IST)." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Create one actionable reminder issue
+        if: steps.contribution.outputs.verified != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TODAY_IST: ${{ steps.contribution.outputs.today_ist }}
+        shell: bash
+        run: |
+          title="Streak guard: no verified code commit for ${TODAY_IST} IST"
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "in:title \"$title\"" --json number --jq 'length')"
+          if [ "$existing" -eq 0 ]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "No real commit authored by @EagleEye-xdata has been found today. Complete a small, tested backlog item before 00:00 IST. This guard deliberately does not generate a cosmetic commit."
+          fi
